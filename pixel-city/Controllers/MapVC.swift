@@ -188,4 +188,10 @@ extension MapVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return FlickrDataService.instance.images.count
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let popVC = storyboard?.instantiateViewController(withIdentifier: POP_VC) as? PopVC else { return }
+        popVC.initData(forImage: FlickrDataService.instance.images[indexPath.row])
+        present(popVC, animated: true, completion: nil)
+    }
 }

@@ -16,6 +16,7 @@ let FLICKR_API_KEY = "4db2cc7a196f1a82af5324406c5d1ea8"
 // Reusable ids
 let DROPPABLE_PIN = "droppablePin"
 let PHOTO_CELL = "photoCell"
+let POP_VC = "popVC"
 
 //
 let REGION_RADIUS: Double = 1000

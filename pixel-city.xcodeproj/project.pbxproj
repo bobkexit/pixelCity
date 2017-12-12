@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		35627B2A1FDFBBAF005A8AC8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35627B291FDFBBAF005A8AC8 /* Constants.swift */; };
 		35627B2C1FDFE790005A8AC8 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35627B2B1FDFE790005A8AC8 /* PhotoCell.swift */; };
+		35627B2F1FDFFD0D005A8AC8 /* FlickrDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35627B2E1FDFFD0D005A8AC8 /* FlickrDataService.swift */; };
 		356EFA4F1FDE7E4200DE7652 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356EFA4E1FDE7E4200DE7652 /* AppDelegate.swift */; };
 		356EFA511FDE7E4200DE7652 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356EFA501FDE7E4200DE7652 /* MapVC.swift */; };
 		356EFA541FDE7E4200DE7652 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 356EFA521FDE7E4200DE7652 /* Main.storyboard */; };
@@ -22,6 +23,7 @@
 		0A77F48EDEF28F9DDA4220A5 /* Pods-pixel-city.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pixel-city.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pixel-city/Pods-pixel-city.debug.xcconfig"; sourceTree = "<group>"; };
 		35627B291FDFBBAF005A8AC8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		35627B2B1FDFE790005A8AC8 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		35627B2E1FDFFD0D005A8AC8 /* FlickrDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrDataService.swift; sourceTree = "<group>"; };
 		356EFA4B1FDE7E4200DE7652 /* pixel-city.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "pixel-city.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		356EFA4E1FDE7E4200DE7652 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		356EFA501FDE7E4200DE7652 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
@@ -54,6 +56,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		35627B2D1FDFFCED005A8AC8 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				35627B2E1FDFFD0D005A8AC8 /* FlickrDataService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		356EFA421FDE7E4100DE7652 = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +85,7 @@
 		356EFA4D1FDE7E4200DE7652 /* pixel-city */ = {
 			isa = PBXGroup;
 			children = (
+				35627B2D1FDFFCED005A8AC8 /* Services */,
 				356EFA641FDE854500DE7652 /* Utilities */,
 				356EFA631FDE850900DE7652 /* Extensions */,
 				356EFA621FDE7E7C00DE7652 /* Models */,
@@ -263,6 +274,7 @@
 				356EFA511FDE7E4200DE7652 /* MapVC.swift in Sources */,
 				35627B2C1FDFE790005A8AC8 /* PhotoCell.swift in Sources */,
 				35D9053B1FDF2A7A007AFE7D /* DroppablePin.swift in Sources */,
+				35627B2F1FDFFD0D005A8AC8 /* FlickrDataService.swift in Sources */,
 				356EFA4F1FDE7E4200DE7652 /* AppDelegate.swift in Sources */,
 				35627B2A1FDFBBAF005A8AC8 /* Constants.swift in Sources */,
 			);

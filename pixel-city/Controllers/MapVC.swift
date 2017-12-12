@@ -56,6 +56,8 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         doubleTap.numberOfTapsRequired = 2
         doubleTap.delegate = self
         mapView.addGestureRecognizer(doubleTap)
+        
+        
     }
     
     func addSwipe() {
@@ -69,9 +71,20 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
+        
+        if !(collectionView?.subviews.contains(spinner))! {
+            configureSpinner()
+            collectionView?.addSubview(spinner)
+            spinner.startAnimating()
+        }
+        if !(collectionView?.subviews.contains(progressLbl))! {
+            addProgressLbl()
+            collectionView?.addSubview(progressLbl)
+        }
     }
     
     @objc func animateViewDown() {
+        FlickrDataService.instance.cancelAllSessions()
         pullUpViewHeightConstraint.constant = 0
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
@@ -82,14 +95,16 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         spinner.center = CGPoint(x: (pullUpView.frame.width / 2), y: (pullUpView.frame.height / 2))
         spinner.activityIndicatorViewStyle = .whiteLarge
         spinner.color = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
+        spinner.isHidden = false
         //spinner.startAnimating()
     }
     
     func addProgressLbl() {
         progressLbl.frame = CGRect(x: 0, y: (pullUpView.frame.height / 2) + 15, width: pullUpView.frame.width, height: 40)
-        progressLbl.font = UIFont(name: "Avenir Next", size: 18)
+        progressLbl.font = UIFont(name: "Avenir Next", size: 14)
         progressLbl.textColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
         progressLbl.textAlignment = .center
+        progressLbl.isHidden = false
     }
 }
 
@@ -113,30 +128,31 @@ extension MapVC: MKMapViewDelegate {
     
     @objc func dropPin(sender: UITapGestureRecognizer) {
         mapView.removeAnnotations(mapView.annotations)
-        animateViewUp()
         addSwipe()
         
-        if !(collectionView?.subviews.contains(spinner))! {
-            configureSpinner()
-            collectionView?.addSubview(spinner)
-            spinner.startAnimating()
-        }
-        
-        if !(collectionView?.subviews.contains(progressLbl))! {
-            addProgressLbl()
-            collectionView?.addSubview(progressLbl)
-        }
-
         let touchPoint = sender.location(in: mapView)
         let touchCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-        
+
+        animateViewUp()
+       
         let annotation = DroppablePin(coordinate: touchCoordinate, identifier: DROPPABLE_PIN)
         mapView.addAnnotation(annotation)
-        
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(touchCoordinate, REGION_RADIUS * 2.0, REGION_RADIUS * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
         
-        print(flickrUrl(withAnnotation: annotation))
+        FlickrDataService.instance.cancelAllSessions()
+        FlickrDataService.instance.retrieveUrls(forAnnotation: annotation) { (success) in
+            if success {
+                FlickrDataService.instance.retrieveImges(progressLbl: self.progressLbl, completionHandler: { (success) in
+                    if success {
+                        self.spinner.isHidden = true
+                        self.spinner.stopAnimating()
+                        self.progressLbl.isHidden = true
+                        //reload collectionView
+                    }
+                })
+            }
+        }
     }
 }
 

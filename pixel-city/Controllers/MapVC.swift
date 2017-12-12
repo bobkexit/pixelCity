@@ -41,7 +41,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         collectionView?.register(PhotoCell.self, forCellWithReuseIdentifier: PHOTO_CELL)
         collectionView?.delegate = self
         collectionView?.dataSource = self
-        collectionView?.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+        collectionView?.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
         pullUpView.addSubview(collectionView!)
     }
 
@@ -73,14 +73,14 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         }
         
         if !(collectionView?.subviews.contains(spinner))! {
-            configureSpinner()
+            setupSpinner()
             collectionView?.addSubview(spinner)
-            spinner.startAnimating()
         }
         if !(collectionView?.subviews.contains(progressLbl))! {
-            addProgressLbl()
+            setupProgressLabel()
             collectionView?.addSubview(progressLbl)
         }
+        addSwipe()
     }
     
     @objc func animateViewDown() {
@@ -91,20 +91,17 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    func configureSpinner() {
+    func setupSpinner() {
         spinner.center = CGPoint(x: (pullUpView.frame.width / 2), y: (pullUpView.frame.height / 2))
         spinner.activityIndicatorViewStyle = .whiteLarge
         spinner.color = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
-        spinner.isHidden = false
-        //spinner.startAnimating()
     }
     
-    func addProgressLbl() {
+    func setupProgressLabel() {
         progressLbl.frame = CGRect(x: 0, y: (pullUpView.frame.height / 2) + 15, width: pullUpView.frame.width, height: 40)
         progressLbl.font = UIFont(name: "Avenir Next", size: 14)
         progressLbl.textColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
         progressLbl.textAlignment = .center
-        progressLbl.isHidden = false
     }
 }
 
@@ -128,7 +125,6 @@ extension MapVC: MKMapViewDelegate {
     
     @objc func dropPin(sender: UITapGestureRecognizer) {
         mapView.removeAnnotations(mapView.annotations)
-        addSwipe()
         
         let touchPoint = sender.location(in: mapView)
         let touchCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
@@ -140,15 +136,21 @@ extension MapVC: MKMapViewDelegate {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(touchCoordinate, REGION_RADIUS * 2.0, REGION_RADIUS * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
         
+        progressLbl.isHidden = false
+        spinner.isHidden = false
+        spinner.startAnimating()
+        
+        FlickrDataService.instance.removeImages()
+        self.collectionView?.reloadData()
         FlickrDataService.instance.cancelAllSessions()
         FlickrDataService.instance.retrieveUrls(forAnnotation: annotation) { (success) in
             if success {
                 FlickrDataService.instance.retrieveImges(progressLbl: self.progressLbl, completionHandler: { (success) in
                     if success {
+                        self.progressLbl.isHidden = true
                         self.spinner.isHidden = true
                         self.spinner.stopAnimating()
-                        self.progressLbl.isHidden = true
-                        //reload collectionView
+                        self.collectionView?.reloadData()
                     }
                 })
             }
@@ -173,8 +175,10 @@ extension MapVC: CLLocationManagerDelegate {
 
 extension MapVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PHOTO_CELL, for: indexPath) as? PhotoCell
-        return cell!
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PHOTO_CELL, for: indexPath) as? PhotoCell else { return UICollectionViewCell() }
+        let imageFromIndex = FlickrDataService.instance.images[indexPath.row]
+        cell.configureCell(image: imageFromIndex)
+        return cell
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -182,6 +186,6 @@ extension MapVC: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return FlickrDataService.instance.images.count
     }
 }

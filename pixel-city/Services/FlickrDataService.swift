@@ -21,8 +21,6 @@ class FlickrDataService {
     }
     
     func retrieveUrls(forAnnotation annotation: DroppablePin, completionHandler: @escaping CompletionHandler) {
-        imgUrls.removeAll()
-        
         Alamofire.request(flickrUrl(withAnnotation: annotation)).responseJSON { (response) in
             if response.result.error == nil {
                 guard let json = response.result.value as? Dictionary<String, Any> else { return }
@@ -42,9 +40,7 @@ class FlickrDataService {
         }
     }
     
-    func retrieveImges(progressLbl: UILabel?, completionHandler: @escaping CompletionHandler) {
-        images.removeAll()
-        
+    func retrieveImges(progressLbl: UILabel?, completionHandler: @escaping CompletionHandler) {        
         for url in imgUrls {
             Alamofire.request(url).responseImage(completionHandler: { (response) in
                 if response.result.error == nil {
@@ -68,5 +64,10 @@ class FlickrDataService {
             sessionDataTask.forEach({ $0.cancel() })
             downloadData.forEach({ $0.cancel() })
         }
+    }
+    
+    func removeImages() {
+        self.imgUrls.removeAll()
+        self.images.removeAll()
     }
 }

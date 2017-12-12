@@ -7,16 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35627B2A1FDFBBAF005A8AC8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35627B291FDFBBAF005A8AC8 /* Constants.swift */; };
 		356EFA4F1FDE7E4200DE7652 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356EFA4E1FDE7E4200DE7652 /* AppDelegate.swift */; };
 		356EFA511FDE7E4200DE7652 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356EFA501FDE7E4200DE7652 /* MapVC.swift */; };
 		356EFA541FDE7E4200DE7652 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 356EFA521FDE7E4200DE7652 /* Main.storyboard */; };
 		356EFA561FDE7E4200DE7652 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 356EFA551FDE7E4200DE7652 /* Assets.xcassets */; };
 		356EFA591FDE7E4200DE7652 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 356EFA571FDE7E4200DE7652 /* LaunchScreen.storyboard */; };
+		35D9053B1FDF2A7A007AFE7D /* DroppablePin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D9053A1FDF2A7A007AFE7D /* DroppablePin.swift */; };
 		9B9E63BBEF23D70F087663B8 /* Pods_pixel_city.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D1551910AE34AB20B0ABDC0 /* Pods_pixel_city.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0A77F48EDEF28F9DDA4220A5 /* Pods-pixel-city.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pixel-city.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pixel-city/Pods-pixel-city.debug.xcconfig"; sourceTree = "<group>"; };
+		35627B291FDFBBAF005A8AC8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		356EFA4B1FDE7E4200DE7652 /* pixel-city.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "pixel-city.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		356EFA4E1FDE7E4200DE7652 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		356EFA501FDE7E4200DE7652 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
@@ -24,6 +27,7 @@
 		356EFA551FDE7E4200DE7652 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		356EFA581FDE7E4200DE7652 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		356EFA5A1FDE7E4200DE7652 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		35D9053A1FDF2A7A007AFE7D /* DroppablePin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppablePin.swift; sourceTree = "<group>"; };
 		648FC6AB8C58E84BE4F49296 /* Pods-pixel-city.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pixel-city.release.xcconfig"; path = "Pods/Target Support Files/Pods-pixel-city/Pods-pixel-city.release.xcconfig"; sourceTree = "<group>"; };
 		6D1551910AE34AB20B0ABDC0 /* Pods_pixel_city.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pixel_city.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -94,6 +98,7 @@
 		356EFA611FDE7E7100DE7652 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				35D9053A1FDF2A7A007AFE7D /* DroppablePin.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -115,6 +120,7 @@
 		356EFA641FDE854500DE7652 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				35627B291FDFBBAF005A8AC8 /* Constants.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -252,7 +258,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				356EFA511FDE7E4200DE7652 /* MapVC.swift in Sources */,
+				35D9053B1FDF2A7A007AFE7D /* DroppablePin.swift in Sources */,
 				356EFA4F1FDE7E4200DE7652 /* AppDelegate.swift in Sources */,
+				35627B2A1FDFBBAF005A8AC8 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
